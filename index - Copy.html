@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lenz Handel – Tradition & Innovation</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- GSAP CDN for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+
+  <!-- CSS Reset (optional) -->
+  <style>
+    /* Simple reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      scroll-behavior: smooth;
+      line-height: 1.6;
+    }
+  </style>
+
+  <!-- Main CSS -->
+  <style>
+    :root {
+      --primary-color: #004aad;      /* Deep navy/blue color */
+      --accent-color: #ffcc00;       /* Vibrant yellow/gold accent */
+      --text-color: #333;
+      --white: #fff;
+    }
+
+    a {
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: var(--accent-color);
+    }
+
+    /* HEADER / NAVIGATION */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: var(--primary-color);
+      z-index: 999;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--white);
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav-links a {
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    /* HERO SECTION */
+    #hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: url('https://source.unsplash.com/1600x900/?construction,solar') no-repeat center center/cover;
+      position: relative;
+      text-align: center;
+      color: var(--white);
+      padding: 0 1rem;
+    }
+    #hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.4); /* overlay */
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+    .hero-title {
+      font-size: 3rem;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .hero-subtitle {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .hero-button {
+      background-color: var(--accent-color);
+      color: var(--primary-color);
+      padding: 0.75rem 2rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .hero-button:hover {
+      background-color: #e6b800;
+    }
+
+    /* ABOUT (TRADITION) SECTION */
+    #about {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+      background-color: var(--white);
+    }
+    #about h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .about-image img {
+      width: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .about-text {
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    @media (max-width: 768px) {
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* PRODUCTS SECTION */
+    #products {
+      background-color: #e5eaf0;
+      padding: 5rem 2rem;
+    }
+    #products h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 3rem;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .product-card {
+      background-color: var(--white);
+      padding: 2rem;
+      text-align: center;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+    .product-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .product-card h3 {
+      margin-bottom: 1rem;
+    }
+    .product-card p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* SERVICES SECTION */
+    #services {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: var(--white);
+    }
+    #services h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 3rem;
+    }
+    .service-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background-color: #f7f7f7;
+      padding: 2rem;
+      text-align: center;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+    .service-card img {
+      width: 80px;
+      margin-bottom: 1rem;
+    }
+    .service-card h3 {
+      margin-bottom: 1rem;
+    }
+    .service-card p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* TESTIMONIALS SECTION */
+    #testimonials {
+      background-color: #f0f0f0;
+      padding: 5rem 2rem;
+    }
+    #testimonials h2 {
+      text-align: center;
+      margin-bottom: 3rem;
+      font-size: 2rem;
+    }
+    .testimonials-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .testimonial {
+      background-color: var(--white);
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .testimonial p {
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    .testimonial .author {
+      font-weight: 600;
+      text-align: right;
+      color: var(--primary-color);
+    }
+
+    /* CONTACT SECTION */
+    #contact {
+      padding: 5rem 2rem;
+      background-color: var(--primary-color);
+      color: var(--white);
+    }
+    #contact h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: grid;
+      gap: 1rem;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      padding: 0.75rem;
+      border: none;
+      border-radius: 4px;
+      outline: none;
+      font-size: 1rem;
+      color: #333;
+    }
+    .contact-form button {
+      background-color: var(--accent-color);
+      color: var(--primary-color);
+      padding: 1rem;
+      border: none;
+      border-radius: 4px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .contact-form button:hover {
+      background-color: #e6b800;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: #333;
+      color: var(--white);
+      text-align: center;
+      padding: 1rem;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 600px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+      nav {
+        flex-direction: column;
+      }
+      .nav-links {
+        margin-top: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER & NAV -->
+  <header>
+    <nav>
+      <div class="logo">Lenz Handel</div>
+      <div class="nav-links">
+        <a href="#hero">Home</a>
+        <a href="#about">Our Tradition</a>
+        <a href="#products">Products</a>
+        <a href="#services">Services</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Where Tradition Meets Innovation</h1>
+      <p class="hero-subtitle">
+        Welcome to <strong>Lenz Handel</strong>, proudly owned by <strong>Ulrich Lenz</strong>.  
+        We’ve been supplying Germany with quality building materials, solar solutions,  
+        and electronics for generations.
+      </p>
+      <button class="hero-button" onclick="document.querySelector('#about').scrollIntoView({behavior: 'smooth'})">
+        Discover Our Story
+      </button>
+    </div>
+  </section>
+
+  <!-- ABOUT (TRADITION) SECTION -->
+  <section id="about">
+    <h2>Our Tradition</h2>
+    <div class="about-content">
+      <div class="about-text">
+        <p>
+          Founded by the Lenz family decades ago, <strong>Lenz Handel</strong> has grown from a small local shop  
+          into a trusted name across Germany. Under the leadership of <strong>Ulrich Lenz</strong>, we continue  
+          to honor our roots while embracing modern technology and sustainable practices. 
+        </p>
+        <p>
+          Our family tradition is built on integrity, dedication to quality, and a deep respect for the environment.  
+          From premium building materials to cutting-edge solar panel installations and electronics, our mission  
+          remains the same: to help you create a future that’s as strong and enduring as our own legacy.
+        </p>
+      </div>
+      <div class="about-image">
+        <img src="https://source.unsplash.com/600x400/?portrait,businessman" 
+             alt="Ulrich Lenz, Owner of Lenz Handel">
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS SECTION -->
+  <section id="products">
+    <h2>Our Products</h2>
+    <div class="product-grid">
+      <!-- Building Materials -->
+      <div class="product-card">
+        <img src="https://source.unsplash.com/600x400/?construction,materials" alt="Building Materials">
+        <h3>Premium Building Materials</h3>
+        <p>
+          High-quality cement, steel, wood, and everything in between. 
+          Our materials ensure sturdy foundations for any project.
+        </p>
+      </div>
+      <!-- Solar Panels -->
+      <div class="product-card">
+        <img src="https://source.unsplash.com/600x400/?solar-panels" alt="Solar Panels">
+        <h3>Solar & Photovoltaic</h3>
+        <p>
+          Harness clean energy with our advanced solar panels—built to last 
+          and optimized for maximum energy output.
+        </p>
+      </div>
+      <!-- Electronics -->
+      <div class="product-card">
+        <img src="https://source.unsplash.com/600x400/?electronics" alt="Electronics">
+        <h3>Electronics & Appliances</h3>
+        <p>
+          Innovative gadgets, smart home devices, and energy-efficient appliances
+          to streamline modern living.
+        </p>
+      </div>
+      <!-- More or optional item -->
+      <div class="product-card">
+        <img src="https://source.unsplash.com/600x400/?tools" alt="Tools and Equipment">
+        <h3>Tools & Equipment</h3>
+        <p>
+          From power tools to safety gear, we stock top brands trusted by 
+          professionals and DIY enthusiasts alike.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section id="services">
+    <h2>Our Services</h2>
+    <div class="service-cards">
+      <!-- Installation Services -->
+      <div class="service-card">
+        <img src="https://source.unsplash.com/80x80/?install" alt="Installation Icon">
+        <h3>Expert Installation</h3>
+        <p>
+          Our skilled technicians handle solar panel, electrical, and construction 
+          installations with precision and care.
+        </p>
+      </div>
+      <!-- Consultancy -->
+      <div class="service-card">
+        <img src="https://source.unsplash.com/80x80/?consultant" alt="Consultancy Icon">
+        <h3>Consultancy & Planning</h3>
+        <p>
+          From energy audits to architectural advice, our experts guide you 
+          through every step of your project’s lifecycle.
+        </p>
+      </div>
+      <!-- Maintenance -->
+      <div class="service-card">
+        <img src="https://source.unsplash.com/80x80/?maintenance" alt="Maintenance Icon">
+        <h3>Maintenance & Support</h3>
+        <p>
+          Keep your systems running smoothly with our ongoing maintenance 
+          packages and reliable customer support.
+        </p>
+      </div>
+      <!-- Custom Solutions -->
+      <div class="service-card">
+        <img src="https://source.unsplash.com/80x80/?custom" alt="Custom Icon">
+        <h3>Custom Solutions</h3>
+        <p>
+          Have a unique challenge? We specialize in tailored solutions 
+          that merge tradition with modern innovation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS SECTION -->
+  <section id="testimonials">
+    <h2>Testimonials</h2>
+    <div class="testimonials-wrapper">
+      <div class="testimonial">
+        <p>
+          “Working with Lenz Handel felt like joining a family. Their building materials 
+          are top-notch, and the advice they provided saved us time and money.”
+        </p>
+        <div class="author">– Markus Weber, General Contractor</div>
+      </div>
+      <div class="testimonial">
+        <p>
+          “Ulrich Lenz and his team installed our solar panels flawlessly. We’re already 
+          seeing significant energy savings and couldn’t be happier.”
+        </p>
+        <div class="author">– Sarah Braun, Homeowner</div>
+      </div>
+      <div class="testimonial">
+        <p>
+          “Amazing service and quality products! Lenz Handel’s electronics section has 
+          all the latest devices, making it our go-to for upgrades.”
+        </p>
+        <div class="author">– Renate K. & Family</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Lenz Handel – Established by the Lenz Family. All Rights Reserved.</p>
+  </footer>
+
+  <!-- GSAP Animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Hero animations
+      gsap.from(".hero-title", {
+        duration: 1,
+        y: 50,
+        opacity: 0,
+        ease: "power3.out"
+      });
+      gsap.from(".hero-subtitle", {
+        duration: 1,
+        y: 50,
+        opacity: 0,
+        delay: 0.3,
+        ease: "power3.out"
+      });
+      gsap.from(".hero-button", {
+        duration: 1,
+        y: 50,
+        opacity: 0,
+        delay: 0.6,
+        ease: "power3.out"
+      });
+
+      // Section fade-in on scroll (requires ScrollTrigger if you want to trigger based on scroll position)
+      // For a simple approach, we'll just fade in each section as the user lands on the page.
+      const sections = document.querySelectorAll("section");
+      sections.forEach((section, index) => {
+        gsap.from(section, {
+          duration: 1,
+          opacity: 0,
+          y: 30,
+          delay: 0.2 * index + 0.5,
+          ease: "power2.out"
+        });
+      });
+    });
+  </script>
+  <!-- If you want advanced scroll-based animations, use GSAP ScrollTrigger:
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    // then define your scroll animations...
+  </script>
+  -->
+
+</body>
+</html>
